@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>(function(s){s.dataset.zone='10292994',s.src='https://groleegni.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -40,34 +39,6 @@
         backdrop-filter: blur(12px);
     }
 
-    /* AD WALL */
-    #adWall {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: rgba(255,255,255,0.65);
-        backdrop-filter: blur(20px);
-        z-index: 9999;
-        flex-direction: column;
-        padding: 20px;
-        text-align: center;
-        color: var(--text);
-    }
-
-    #adWall h2 {
-        font-size: 24px;
-        margin-bottom: 10px;
-    }
-
-    #timer {
-        font-size: 42px;
-        font-weight: 700;
-        margin-top: 12px;
-    }
-
-    /* MAIN CARD */
     .card {
         background: white;
         max-width: 500px;
@@ -111,11 +82,6 @@
         background: var(--primary-hover);
     }
 
-    .btn:disabled {
-        background: #93c5fd;
-        cursor: not-allowed;
-    }
-
     #result {
         margin-top: 20px;
         padding: 16px;
@@ -132,39 +98,22 @@
 
 <header>Securable</header>
 
-<div id="adWall">
-    <h2>Preparing your generator…</h2>
-    <div>Please wait <span id="timer">5</span> seconds</div>
-</div>
-
 <div class="card">
     <h2>Generate a Secure Link</h2>
 
     <input id="target" placeholder="https://example.com" />
 
-    <button id="genBtn" class="btn" onclick="generate()" disabled>Generate Link</button>
+    <button id="genBtn" class="btn" onclick="generate()">Generate Link</button>
 
     <div id="result"></div>
 </div>
 
 <script>
-let t = 5;
-let interval = setInterval(() => {
-    t--;
-    document.getElementById("timer").textContent = t;
-
-    if (t <= 0) {
-        clearInterval(interval);
-        document.getElementById("adWall").style.display = "none";
-        document.getElementById("genBtn").disabled = false;
-    }
-}, 1000);
-
-function randomCode(len = 6) {
+function randomCode(len=6) {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let out = "";
     for (let i = 0; i < len; i++)
-        out += chars[Math.floor(Math.random() * chars.length)];
+        out += chars[Math.floor(Math.random()*chars.length)];
     return out;
 }
 
@@ -185,5 +134,20 @@ function generate() {
 }
 </script>
 
+<!-- 🔥 Monetag Vignette Script (FULL PAGE AD) -->
+<script>
+(function(s){
+    s.dataset.zone='10292994',
+    s.src='https://groleegni.net/vignette.min.js'
+})
+(
+    [document.documentElement, document.body]
+    .filter(Boolean)
+    .pop()
+    .appendChild(document.createElement('script'))
+)
+</script>
+
 </body>
 </html>
+
