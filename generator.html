@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Securable Generator</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css" rel="stylesheet">
+
+<style>
+    :root {
+        --bg: #f9fafb;
+        --text: #111827;
+        --subtle: #6b7280;
+        --card: #ffffff;
+        --border: #e5e7eb;
+        --primary: #3b82f6;
+        --primary-hover: #2563eb;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        font-family: 'Inter', sans-serif;
+        color: var(--text);
+        text-align: center;
+    }
+
+    header {
+        padding: 20px 40px;
+        background: white;
+        border-bottom: 1px solid var(--border);
+        font-size: 20px;
+        font-weight: 600;
+        text-align: left;
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(12px);
+    }
+
+    /* AD WALL */
+    #adWall {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255,255,255,0.65);
+        backdrop-filter: blur(20px);
+        z-index: 9999;
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+        color: var(--text);
+    }
+
+    #adWall h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    #timer {
+        font-size: 42px;
+        font-weight: 700;
+        margin-top: 12px;
+    }
+
+    /* MAIN CARD */
+    .card {
+        background: white;
+        max-width: 500px;
+        margin: 80px auto;
+        padding: 40px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        box-shadow: 0 6px 25px rgba(0,0,0,0.04);
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        font-size: 16px;
+        margin-top: 10px;
+        transition: .2s;
+    }
+
+    input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+    }
+
+    .btn {
+        margin-top: 20px;
+        width: 100%;
+        padding: 14px;
+        font-size: 17px;
+        border-radius: 12px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        font-weight: 500;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .btn:hover {
+        background: var(--primary-hover);
+    }
+
+    .btn:disabled {
+        background: #93c5fd;
+        cursor: not-allowed;
+    }
+
+    #result {
+        margin-top: 20px;
+        padding: 16px;
+        background: #f3f4f6;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        font-size: 16px;
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+
+<header>Securable</header>
+
+<div id="adWall">
+    <h2>Preparing your generator…</h2>
+    <div>Please wait <span id="timer">5</span> seconds</div>
+</div>
+
+<div class="card">
+    <h2>Generate a Secure Link</h2>
+
+    <input id="target" placeholder="https://example.com" />
+
+    <button id="genBtn" class="btn" onclick="generate()" disabled>Generate Link</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+let t = 5;
+let interval = setInterval(() => {
+    t--;
+    document.getElementById("timer").textContent = t;
+
+    if (t <= 0) {
+        clearInterval(interval);
+        document.getElementById("adWall").style.display = "none";
+        document.getElementById("genBtn").disabled = false;
+    }
+}, 1000);
+
+function randomCode(len = 6) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let out = "";
+    for (let i = 0; i < len; i++)
+        out += chars[Math.floor(Math.random() * chars.length)];
+    return out;
+}
+
+function generate() {
+    const input = document.getElementById("target").value.trim();
+    if (!input) return alert("Enter a URL first.");
+
+    const code = randomCode();
+    const finalUrl = `https://securable.click/${code}`;
+
+    const res = document.getElementById("result");
+    res.style.display = "block";
+    res.innerHTML = `
+        <b>Generated Link:</b><br>
+        <a href="${finalUrl}" target="_blank">${finalUrl}</a><br><br>
+        Redirects to: ${input}
+    `;
+}
+</script>
+
+</body>
+</html>
