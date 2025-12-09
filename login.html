@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Securable Login</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css" rel="stylesheet">
+<script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #e0e7ff, #f0f9ff);
+        font-family: 'Inter', sans-serif;
+    }
+
+    .box {
+        background: rgba(255,255,255,0.85);
+        padding: 40px;
+        width: 380px;
+        border-radius: 20px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        text-align: center;
+        backdrop-filter: blur(14px);
+        animation: fadeIn .5s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+        margin-bottom: 25px;
+        font-size: 26px;
+        font-weight: 700;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 13px;
+        border-radius: 12px;
+        border: 1px solid #d1d5db;
+        background: white;
+        font-size: 15px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: .2s;
+        margin-bottom: 12px;
+    }
+
+    .btn img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+
+    .btn:hover {
+        background: #f9fafb;
+    }
+
+    .create {
+        margin-top: 18px;
+        padding: 13px;
+        border-radius: 12px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        transition: .2s;
+        width: 100%;
+    }
+
+    .create:hover {
+        background: #1d4ed8;
+    }
+
+    .small {
+        margin-top: 14px;
+        color: #64748b;
+        font-size: 14px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>Securable Login</h1>
+
+    <!-- GOOGLE -->
+    <button class="btn" id="googleBtn">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg">
+        Login with Google
+    </button>
+
+    <!-- MICROSOFT -->
+    <button class="btn" id="microsoftBtn">
+        <img src="https://imgs.search.brave.com/Y9lv2LVIPv0RkfWP7DNYwUKBn8x9tIlQZA5mlt-3lHk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9icmFuZGxvZ29zLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAyMC8wMy9NaWNyb3NvZnQtbG9nby1zdmctNTEyLzUxMi5wbmc">
+        Login with Microsoft
+    </button>
+
+    <!-- APPLE -->
+    <button class="btn" id="appleBtn">
+        <img src="https://imgs.search.brave.com/oo9Codg_FHAcBq-c9h0pRr_gocsFL3F0zTchmBmnswA/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFnZXMuc2Vla2xvZ28uY29tL2xvZ28tcG5nLzI3LzEvYXBwbGUtbG9nby1wbmdfc2Vla2xvZ28tMjcyODI1LnBuZw">
+        Login with Apple
+    </button>
+
+    <!-- AUTH0 -->
+    <button class="btn" id="auth0Btn">
+        <img src="https://imgs.search.brave.com/5z9idEpil_UNrr9_WR7QPLTHOdrd81Di7BhHumL8Meo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4uZnJlZWJpZXN1cHBseS5jb20vbG9nb3MvbGFyZ2UvMngvYXV0aDAtbG9nby1zdmctdmVjdG9yLnN2Zw">
+        Login with Auth0
+    </button>
+
+    <!-- CREATE ACCOUNT -->
+    <button class="create" id="signupBtn">Create Account</button>
+
+    <div class="small">Secure Identity · Powered by Auth0</div>
+</div>
+
+<script>
+    const auth0Client = await auth0.createAuth0Client({
+        domain: "YOUR-AUTH0-DOMAIN",
+        clientId: "YOUR-AUTH0-CLIENT-ID",
+        authorizationParams: {
+            redirect_uri: window.location.origin + "/"
+        }
+    });
+
+    // AUTH0 BASIC LOGIN
+    document.getElementById("auth0Btn").onclick = async () => {
+        await auth0Client.loginWithRedirect();
+    };
+
+    // GOOGLE LOGIN
+    document.getElementById("googleBtn").onclick = async () => {
+        await auth0Client.loginWithRedirect({
+            authorizationParams: { connection: "google-oauth2" }
+        });
+    };
+
+    // MICROSOFT LOGIN — AUTO SUPPORTS windowslive OR microsoft
+    document.getElementById("microsoftBtn").onclick = async () => {
+        try {
+            await auth0Client.loginWithRedirect({
+                authorizationParams: { connection: "microsoft" }
+            });
+        } catch (e) {
+            await auth0Client.loginWithRedirect({
+                authorizationParams: { connection: "windowslive" }
+            });
+        }
+    };
+
+    // APPLE LOGIN
+    document.getElementById("appleBtn").onclick = async () => {
+        await auth0Client.loginWithRedirect({
+            authorizationParams: { connection: "apple" }
+        });
+    };
+
+    // CREATE ACCOUNT
+    document.getElementById("signupBtn").onclick = async () => {
+        await auth0Client.loginWithRedirect({
+            authorizationParams: { screen_hint: "signup" }
+        });
+    };
+</script>
+
+</body>
+</html>
