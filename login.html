@@ -125,8 +125,8 @@
         Login with Auth0
     </button>
 
-    <!-- CREATE ACCOUNT -->
-    <button class="create" id="signupBtn">Create Account</button>
+    <!-- SAML (replaces Create Account) -->
+    <button class="create" id="samlBtn">Login with SAML</button>
 
     <div class="small">Secure Identity · Powered by Auth0</div>
 </div>
@@ -142,19 +142,16 @@
         }
     });
 
-    // AUTH0 BASIC LOGIN
     document.getElementById("auth0Btn").onclick = async () => {
         await auth0Client.loginWithRedirect();
     };
 
-    // GOOGLE LOGIN
     document.getElementById("googleBtn").onclick = async () => {
         await auth0Client.loginWithRedirect({
             authorizationParams: { connection: "google-oauth2" }
         });
     };
 
-    // MICROSOFT LOGIN
     document.getElementById("microsoftBtn").onclick = async () => {
         try {
             await auth0Client.loginWithRedirect({
@@ -167,18 +164,16 @@
         }
     };
 
-    // APPLE LOGIN
     document.getElementById("appleBtn").onclick = async () => {
         await auth0Client.loginWithRedirect({
             authorizationParams: { connection: "apple" }
         });
     };
 
-    // SIGN UP
-    document.getElementById("signupBtn").onclick = async () => {
-        await auth0Client.loginWithRedirect({
-            authorizationParams: { screen_hint: "signup" }
-        });
+    // ⭐ SAML LOGIN (direct IdP endpoint)
+    document.getElementById("samlBtn").onclick = () => {
+        window.location.href =
+            "https://dev-tnhr6w3ixu052ugm.us.auth0.com/samlp/cOgHvMFU7i0MqNbV6tHisyUwiMD7tJka";
     };
 
 })();
