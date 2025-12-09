@@ -23,6 +23,10 @@
         --primary-hover: #1e40af;
     }
 
+    * {
+        box-sizing: border-box;
+    }
+
     body {
         margin: 0;
         font-family: 'Inter', sans-serif;
@@ -33,8 +37,8 @@
 
     /* HEADER */
     header {
-        padding: 22px 40px;
-        background: rgba(255,255,255,0.9);
+        padding: 18px 40px;
+        background: rgba(255,255,255,0.95);
         backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--border);
         display: flex;
@@ -49,10 +53,23 @@
         font-size: 22px;
         font-weight: 700;
         letter-spacing: -0.3px;
+        white-space: nowrap;
     }
 
-    nav a {
-        margin-left: 22px;
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        position: relative; /* for dropdown anchoring */
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nav-links a {
         color: var(--text);
         text-decoration: none;
         font-size: 15px;
@@ -60,35 +77,45 @@
         opacity: .8;
         transition: .2s;
     }
-    nav a:hover {
+    .nav-links a:hover {
         opacity: 1;
     }
 
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
     .login-btn {
-        padding: 10px 18px;
-        border-radius: 10px;
+        padding: 9px 16px;
+        border-radius: 999px;
         background: var(--primary);
         color: white;
         text-decoration: none;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 500;
-        margin-left: 20px;
+        border: none;
+        cursor: pointer;
         transition: .2s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
     }
     .login-btn:hover {
         background: var(--primary-hover);
     }
 
-    /* PROFILE BUTTON */
     .profile-btn {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         overflow: hidden;
         cursor: pointer;
-        margin-left: 18px;
         border: 2px solid var(--border);
         transition: .2s;
+        flex-shrink: 0;
     }
     .profile-btn:hover {
         transform: scale(1.05);
@@ -99,28 +126,35 @@
         object-fit: cover;
     }
 
-    /* PROFILE MENU */
     .profile-menu {
         position: absolute;
-        top: 70px;
-        right: 40px;
+        top: 56px;
+        right: 0;
         background: white;
         border-radius: 12px;
         border: 1px solid var(--border);
         box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-        width: 180px;
+        width: 200px;
         display: none;
-        animation: fade .2s ease-out;
+        animation: fade .18s ease-out;
+        overflow: hidden;
     }
 
     @keyframes fade {
-        from { opacity: 0; transform: translateY(-5px); }
+        from { opacity: 0; transform: translateY(-4px); }
         to { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile-menu-header {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+        font-size: 13px;
+        color: var(--subtle);
     }
 
     .profile-menu a {
         display: block;
-        padding: 12px 16px;
+        padding: 11px 16px;
         color: var(--text);
         text-decoration: none;
         font-size: 14px;
@@ -130,7 +164,6 @@
     .profile-menu a:hover {
         background: #f1f5f9;
     }
-
     .profile-menu a:last-child {
         border-bottom: none;
         color: #dc2626;
@@ -140,7 +173,7 @@
     .hero {
         text-align: center;
         max-width: 880px;
-        margin: 120px auto 70px;
+        margin: 110px auto 70px;
         padding: 0 20px;
         animation: fadeIn .8s ease-out;
     }
@@ -150,76 +183,137 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
+    .hero-kicker {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.17em;
+        color: var(--subtle);
+        margin-bottom: 14px;
+    }
+
     .hero h1 {
-        font-size: 50px;
+        font-size: 46px;
         font-weight: 700;
-        line-height: 1.15;
-        margin-bottom: 20px;
+        line-height: 1.12;
+        margin-bottom: 16px;
     }
 
     .hero p {
-        font-size: 18px;
+        font-size: 17px;
         color: var(--subtle);
         max-width: 620px;
-        margin: 0 auto 35px;
+        margin: 0 auto 32px;
         line-height: 1.6;
     }
 
-    .cta {
-        padding: 15px 34px;
+    .hero-cta-row {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .cta-primary {
+        padding: 13px 28px;
         background: var(--primary);
         color: white;
-        border-radius: 12px;
-        font-size: 17px;
+        border-radius: 999px;
+        font-size: 15px;
         font-weight: 500;
         text-decoration: none;
         transition: .2s;
     }
-    .cta:hover {
+    .cta-primary:hover {
         background: var(--primary-hover);
     }
 
+    .cta-secondary {
+        padding: 13px 22px;
+        background: white;
+        color: var(--text);
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 500;
+        text-decoration: none;
+        border: 1px solid var(--border);
+        transition: .2s;
+    }
+    .cta-secondary:hover {
+        background: #f8fafc;
+    }
+
     /* GRID */
+    .grid-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 0 20px 80px;
+    }
+
     .grid {
-        max-width: 1000px;
-        margin: 40px auto 80px;
-        padding: 0 20px;
+        width: 100%;
+        max-width: 1040px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 22px;
     }
 
     .card {
         background: var(--card);
-        padding: 25px;
+        padding: 22px;
         border-radius: 16px;
         border: 1px solid var(--border);
         transition: .2s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 150px;
     }
 
     .card:hover {
-        transform: translateY(-4px);
+        transform: translateY(-3px);
         border-color: var(--primary);
+        box-shadow: 0 14px 35px rgba(15,23,42,0.06);
     }
 
     .card strong {
-        font-size: 18px;
+        font-size: 17px;
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         color: var(--text);
     }
 
     .card p {
         color: var(--subtle);
         line-height: 1.5;
-        font-size: 15px;
+        font-size: 14px;
+        margin: 0;
     }
 
     footer {
         text-align: center;
-        padding: 60px 0;
+        padding: 40px 0 50px;
         color: var(--subtle);
-        font-size: 15px;
+        font-size: 14px;
+        border-top: 1px solid #e5e7eb;
+        background: #f9fafb;
+    }
+
+    @media (max-width: 768px) {
+        header {
+            padding: 14px 16px;
+        }
+        .hero {
+            margin-top: 80px;
+        }
+        .hero h1 {
+            font-size: 34px;
+        }
+        .header-right {
+            gap: 12px;
+        }
+        .nav-links {
+            display: none; /* keep it simple on mobile */
+        }
     }
 </style>
 </head>
@@ -229,55 +323,76 @@
 <header>
     <div class="logo">Securable Foundation</div>
 
-    <nav id="navArea">
-        <a href="#">About</a>
-        <a href="#">Software</a>
-        <a href="#">Docs</a>
-        <a href="generator.html">Tools</a>
+    <div class="header-right">
+        <nav class="nav-links">
+            <a href="#">About</a>
+            <a href="#">Software</a>
+            <a href="#">Docs</a>
+            <a href="generator.html">Tools</a>
+        </nav>
 
-        <!-- LOGIN BUTTON (auto replaces with profile picture) -->
-        <a id="loginBtn" href="login.html" class="login-btn">Login</a>
+        <div class="nav-actions">
+            <!-- LOGIN BUTTON: changes to profile when authenticated -->
+            <a id="loginBtn" href="#" class="login-btn">Login</a>
 
-        <!-- PROFILE BUTTON (hidden until logged in) -->
-        <div id="profileBtn" class="profile-btn" style="display:none;">
-            <img id="profileImg" src="">
+            <!-- PROFILE BUTTON: hidden until logged in -->
+            <div id="profileBtn" class="profile-btn" style="display:none;">
+                <img id="profileImg" src="" alt="Profile">
+            </div>
         </div>
-    </nav>
 
-    <!-- DROPDOWN MENU -->
-    <div id="profileMenu" class="profile-menu">
-        <a href="portals.html">My Portals</a>
-        <a href="account.html">Account</a>
-        <a id="logoutBtn" href="#">Logout</a>
+        <!-- PROFILE DROPDOWN MENU -->
+        <div id="profileMenu" class="profile-menu">
+            <div class="profile-menu-header" id="profileMenuHeader">
+                Signed in
+            </div>
+            <a href="portals.html">My Portals</a>
+            <a href="account.html">Account</a>
+            <a href="#" id="logoutBtn">Logout</a>
+        </div>
     </div>
 </header>
 
 <section class="hero">
+    <div class="hero-kicker">SECURABLE FOUNDATION</div>
     <h1>Powering Every Securable Company</h1>
     <p>The Securable Foundation builds the infrastructure, identity systems, and developer tooling that power the next generation of secure, modern companies.</p>
 
-    <a href="generator.html" class="cta">Explore Developer Tools</a>
+    <div class="hero-cta-row">
+        <a href="generator.html" class="cta-primary">Explore Developer Tools</a>
+        <a href="portals.html" class="cta-secondary">View Securable Companies</a>
+    </div>
 </section>
 
-<div class="grid">
-    <div class="card">
-        <strong>Securable SSI (Secure Sign-In)</strong>
-        <p>Enterprise-grade authentication with modern identity standards and effortless API integration.</p>
-    </div>
+<div class="grid-wrapper">
+    <div class="grid">
+        <div class="card">
+            <div>
+                <strong>Securable SSI (Secure Sign-In)</strong>
+                <p>Enterprise-grade authentication with modern identity standards and effortless API integration.</p>
+            </div>
+        </div>
 
-    <div class="card">
-        <strong>Securable Link Engine</strong>
-        <p>A lightning-fast redirect and link-security platform powering millions of safe requests.</p>
-    </div>
+        <div class="card">
+            <div>
+                <strong>Securable Link Engine</strong>
+                <p>A lightning-fast redirect and link-security platform powering millions of safe requests.</p>
+            </div>
+        </div>
 
-    <div class="card">
-        <strong>Securable API Stack</strong>
-        <p>The unified developer platform behind internal and external Securable services.</p>
-    </div>
+        <div class="card">
+            <div>
+                <strong>Securable API Stack</strong>
+                <p>The unified developer platform behind internal and external Securable services.</p>
+            </div>
+        </div>
 
-    <div class="card">
-        <strong>Securable Cloud</strong>
-        <p>Edge-accelerated compute powered by Worker functions and ultra-low-latency routing.</p>
+        <div class="card">
+            <div>
+                <strong>Securable Cloud</strong>
+                <p>Edge-accelerated compute powered by Worker functions and ultra-low-latency routing.</p>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -291,43 +406,74 @@
         domain: "dev-tnhr6w3ixu052ugm.us.auth0.com",
         clientId: "cOgHvMFU7i0MqNbV6tHisyUwiMD7tJka",
         cacheLocation: "localstorage",
-        authorizationParams: { redirect_uri: window.location.origin }
+        authorizationParams: {
+            redirect_uri: window.location.origin + window.location.pathname
+        }
     });
 
-    // HANDLE REDIRECT AFTER LOGIN
-    if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+    // Handle redirect back from Auth0
+    if (window.location.search.includes("code=") &&
+        window.location.search.includes("state=")) {
+
         await auth0Client.handleRedirectCallback();
-        window.history.replaceState({}, document.title, "/");
+
+        const newUrl = new URL(window.location.href);
+        newUrl.search = "";
+        window.history.replaceState({}, document.title, newUrl.toString());
     }
 
     const isAuthenticated = await auth0Client.isAuthenticated();
 
-    const loginBtn = document.getElementById("loginBtn");
+    const loginBtn   = document.getElementById("loginBtn");
     const profileBtn = document.getElementById("profileBtn");
     const profileImg = document.getElementById("profileImg");
     const profileMenu = document.getElementById("profileMenu");
+    const profileMenuHeader = document.getElementById("profileMenuHeader");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Always wire login button
+    loginBtn.onclick = (e) => {
+        e.preventDefault();
+        auth0Client.loginWithRedirect();
+    };
 
     if (isAuthenticated) {
         const user = await auth0Client.getUser();
 
+        // Swap login button for profile avatar
         loginBtn.style.display = "none";
         profileBtn.style.display = "block";
 
-        profileImg.src = user.picture || "https://via.placeholder.com/40?text=?";
+        profileImg.src = user.picture || "https://via.placeholder.com/80?text=K";
+        profileImg.alt = user.name || user.email || "Profile";
 
-        // TOGGLE MENU
+        const nameOrEmail = user.name || user.email || "Signed in";
+        profileMenuHeader.textContent = nameOrEmail;
+
+        // Toggle dropdown
         profileBtn.onclick = () => {
             profileMenu.style.display =
                 profileMenu.style.display === "block" ? "none" : "block";
         };
 
-        // LOGOUT
-        document.getElementById("logoutBtn").onclick = (e) => {
+        // Hide menu when clicking outside
+        document.addEventListener("click", (evt) => {
+            if (!profileMenu.contains(evt.target) &&
+                !profileBtn.contains(evt.target)) {
+                profileMenu.style.display = "none";
+            }
+        });
+
+        // Logout
+        logoutBtn.onclick = (e) => {
             e.preventDefault();
-            auth0Client.logout({ logoutParams: { returnTo: window.location.origin } });
+            auth0Client.logout({
+                logoutParams: {
+                    returnTo: window.location.origin + window.location.pathname
+                }
+            });
         };
     }
-
 })();
 </script>
 
