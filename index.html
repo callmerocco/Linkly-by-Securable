@@ -2,130 +2,165 @@
 <html lang="en">
 <head>
 <script>(function(s){s.dataset.zone='10292992',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Securable — Secure Tools for the Web</title>
+<title>Securable Foundation — Infrastructure for the Next Web</title>
 <meta name="monetag" content="ecc8c2c5eeff204661c2ed97ccfe4c06">
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css" rel="stylesheet">
 
 <style>
     :root {
-        --bg: #f9fafb;
-        --text: #111827;
-        --subtle: #6b7280;
+        --bg: #f8fafc;
+        --text: #0f172a;
+        --subtle: #64748b;
         --card: #ffffff;
-        --border: #e5e7eb;
-        --primary: #3b82f6;
-        --primary-hover: #2563eb;
+        --border: #e2e8f0;
+        --primary: #2563eb;
+        --primary-hover: #1e40af;
     }
 
     body {
         margin: 0;
-        padding: 0;
         font-family: 'Inter', sans-serif;
         background: var(--bg);
         color: var(--text);
+        overflow-x: hidden;
     }
 
     /* HEADER */
     header {
         padding: 22px 40px;
-        background: white;
+        background: rgba(255,255,255,0.9);
+        backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--border);
         display: flex;
         justify-content: space-between;
         align-items: center;
         position: sticky;
         top: 0;
-        backdrop-filter: blur(12px);
+        z-index: 50;
     }
 
     .logo {
         font-size: 22px;
-        font-weight: 600;
+        font-weight: 700;
+        letter-spacing: -0.3px;
     }
 
-    .nav-btn {
+    nav a {
+        margin-left: 22px;
+        color: var(--text);
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        opacity: .8;
+        transition: .2s;
+    }
+    nav a:hover {
+        opacity: 1;
+    }
+
+    .login-btn {
         padding: 10px 18px;
         border-radius: 10px;
-        background: var(--text);
+        background: var(--primary);
         color: white;
         text-decoration: none;
         font-size: 15px;
         font-weight: 500;
+        margin-left: 20px;
         transition: .2s;
     }
-
-    .nav-btn:hover {
-        background: #000;
+    .login-btn:hover {
+        background: var(--primary-hover);
     }
 
     /* HERO */
     .hero {
-        max-width: 900px;
-        margin: 80px auto;
         text-align: center;
+        max-width: 880px;
+        margin: 120px auto 70px;
         padding: 0 20px;
+        animation: fadeIn .8s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     .hero h1 {
-        font-size: 44px;
+        font-size: 50px;
         font-weight: 700;
+        line-height: 1.15;
         margin-bottom: 20px;
-        line-height: 1.2;
     }
 
     .hero p {
         font-size: 18px;
         color: var(--subtle);
-        max-width: 600px;
-        margin: 0 auto 30px;
+        max-width: 620px;
+        margin: 0 auto 35px;
+        line-height: 1.6;
     }
 
     .cta {
-        display: inline-flex;
-        padding: 14px 30px;
+        padding: 15px 34px;
         background: var(--primary);
         color: white;
-        text-decoration: none;
         border-radius: 12px;
         font-size: 17px;
         font-weight: 500;
+        text-decoration: none;
         transition: .2s;
     }
-
     .cta:hover {
         background: var(--primary-hover);
     }
 
-    /* SECTION */
-    .section {
-        max-width: 900px;
+    /* GRID */
+    .grid {
+        max-width: 1000px;
+        margin: 40px auto 80px;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+    }
+
+    .card {
         background: var(--card);
-        margin: 50px auto;
-        padding: 40px;
+        padding: 25px;
         border-radius: 16px;
         border: 1px solid var(--border);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        transition: .2s;
     }
 
-    .section h2 {
-        font-size: 28px;
-        margin-bottom: 20px;
+    .card:hover {
+        transform: translateY(-4px);
+        border-color: var(--primary);
     }
 
-    .feature {
-        margin-bottom: 15px;
-        font-size: 17px;
+    .card strong {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 8px;
+        color: var(--text);
+    }
+
+    .card p {
         color: var(--subtle);
+        line-height: 1.5;
+        font-size: 15px;
     }
 
     /* FOOTER */
     footer {
         text-align: center;
-        padding: 50px 0;
+        padding: 60px 0;
         color: var(--subtle);
         font-size: 15px;
     }
@@ -135,34 +170,50 @@
 <body>
 
 <header>
-    <div class="logo">Securable</div>
-    <a href="generator.html" class="nav-btn">Launch Generator</a>
+    <div class="logo">Securable Foundation</div>
+
+    <nav>
+        <a href="#">About</a>
+        <a href="#">Software</a>
+        <a href="#">Docs</a>
+        <a href="generator.html">Tools</a>
+        <a href="login.html" class="login-btn">Login</a>
+    </nav>
 </header>
 
 <section class="hero">
-    <h1>Secure Tools for the Web</h1>
-    <p>Securable gives you clean, fast, reliable utilities — designed with a  minimal aesthetic and built to scale.</p>
+    <h1>Powering Every Securable Company</h1>
+    <p>The Securable Foundation builds the infrastructure, identity systems, and developer tooling that power the next generation of secure, modern companies.</p>
 
-    <a href="generator.html" class="cta">Start Generating Links</a>
+    <a href="generator.html" class="cta">Explore Developer Tools</a>
 </section>
 
-<section class="section">
-    <h2>Why Choose Securable?</h2>
-    <div class="feature">✔ Professional, modern UI</div>
-    <div class="feature">✔ Fast and secure redirect engine</div>
-    <div class="feature">✔ Free, simple, and beautiful</div>
-</section>
+<div class="grid">
+    <div class="card">
+        <strong>Securable SSI (Secure Sign-In)</strong>
+        <p>Enterprise-grade authentication with modern identity standards and effortless API integration.</p>
+    </div>
 
-<section class="section">
-    <h2>Tools</h2>
-    <div class="feature"> Secure Redirect Generator</div>
-    <div class="feature"> URL Safety Scanner (coming soon)</div>
-    <div class="feature"> API Toolkit (coming soon)</div>
-</section>
+    <div class="card">
+        <strong>Securable Link Engine</strong>
+        <p>A lightning-fast redirect and link-security platform powering millions of safe requests.</p>
+    </div>
+
+    <div class="card">
+        <strong>Securable API Stack</strong>
+        <p>The unified developer platform behind internal and external Securable services.</p>
+    </div>
+
+    <div class="card">
+        <strong>Securable Cloud</strong>
+        <p>Edge-accelerated compute powered by Worker functions and ultra-low-latency routing.</p>
+    </div>
+</div>
 
 <footer>
-    © 2025 Securable. All rights reserved.
+    © 2025 Securable Foundation. All rights reserved.
 </footer>
 
 </body>
 </html>
+
