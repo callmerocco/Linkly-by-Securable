@@ -132,6 +132,8 @@
 </div>
 
 <script>
+(async () => {
+
     const auth0Client = await auth0.createAuth0Client({
         domain: "dev-tnhr6w3ixu052ugm.us.auth0.com",
         clientId: "cOgHvMFU7i0MqNbV6tHisyUwiMD7tJka",
@@ -152,7 +154,7 @@
         });
     };
 
-    // MICROSOFT LOGIN — AUTO SUPPORTS windowslive OR microsoft
+    // MICROSOFT LOGIN
     document.getElementById("microsoftBtn").onclick = async () => {
         try {
             await auth0Client.loginWithRedirect({
@@ -172,12 +174,14 @@
         });
     };
 
-    // CREATE ACCOUNT
+    // SIGN UP
     document.getElementById("signupBtn").onclick = async () => {
         await auth0Client.loginWithRedirect({
             authorizationParams: { screen_hint: "signup" }
         });
     };
+
+})();
 </script>
 
 </body>
